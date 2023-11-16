@@ -23,6 +23,9 @@ int main(void)
 			if (input[read - 1] == '\n')
 				input[read - 1] = '\0';
 
+			if (my_strcmp(input, "exit") == 0)
+				break;
+
 			fork_execve(input);
 		}
 		else

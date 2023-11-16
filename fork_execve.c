@@ -10,8 +10,18 @@
 void fork_execve(char *inputStr)
 {
 	pid_t cmdChild;
-	char *args[1];
 	extern char **environ;
+	char *token;
+	char *args[10];
+	int argCount = 0;
+
+	token = strtok(inputStr, " ");
+	while (token != NULL)
+	{
+		args[argCount++] = token;
+		token = strtok(NULL, " ");
+	}
+	args[argCount] = NULL;
 
 	cmdChild = fork();
 	if (cmdChild == -1)
@@ -22,10 +32,7 @@ void fork_execve(char *inputStr)
 
 	if (cmdChild == 0)
 	{
-		args[0] = inputStr;
-		args[1] = NULL;
-
-		if (execve(inputStr, args, environ) == -1)
+		if (execve(args[0], args, environ) == -1)
 		{
 			printf("No such file or directory\n");
 			exit(EXIT_FAILURE);
@@ -34,6 +41,6 @@ void fork_execve(char *inputStr)
 	}
 	else
 	{
-		my_wait(cmdChild, inputStr);
+	my_wait(cmdChild, inputStr);
 	}
 }
