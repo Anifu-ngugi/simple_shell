@@ -33,7 +33,7 @@ void fork_execve(char *inputStr)
 	}
 	else if (strchr(args[0], '/') == NULL)
 	{
-		customPath = "/usr/bin";
+		customPath = "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:";
 		setenv("PATH", customPath, 1);
 		if (access(args[0], X_OK) == 0)
 		{
